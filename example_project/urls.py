@@ -14,6 +14,17 @@ from pinax.apps.tasks.models import Task
 from pinax.apps.topics.models import Topic
 
 
+from techblog.apps.blog.sitemap import PostSitemap, TagSitemap, BlogSitemap, ChannelSitemap, RootblogSitemap, RootblogPostSitemap
+from techblog.apps.pages.sitemap import PageSitemap
+
+sitemaps = { 'blogs' : BlogSitemap,
+             'channels' : ChannelSitemap,
+             'rootblog' : RootblogSitemap,
+             'posts' : PostSitemap,
+             'rootblogposts' : RootblogPostSitemap,
+             'pages' : PageSitemap,
+             'tags' : TagSitemap }
+
 
 handler500 = "pinax.views.server_error"
 
@@ -47,6 +58,17 @@ urlpatterns = patterns("",
     (r"^projects/", include("pinax.apps.projects.urls")),
     (r"^flag/", include("flag.urls")),
     
+    (r'^', include('techblog.apps.blog.urls'), {"blog_slug":settings.DEFAULT_BLOG_SLUG, "blog_root":"/"}),
+
+    (r'^blog/(?P<blog_slug>[\w-]*)/', include('techblog.apps.blog.urls') ),
+
+    (r'^comments/', include('techblog.apps.comments.urls')),
+    (r'^accounts/', include('techblog.apps.accounts.urls')),
+    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    (r'^', include('techblog.apps.pages.urls')),
+
+
+
     (r"^admin/", include(admin.site.urls)),
 )
 

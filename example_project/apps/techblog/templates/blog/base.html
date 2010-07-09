@@ -6,16 +6,16 @@
 
 <head>
     <title>{% block title %}YOU FORGOT THE TITLE!{% endblock %}</title>
-    <link rel="stylesheet" href="/media/css/blog_base.css" type="text/css" ></link>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/blog_base.css" type="text/css" ></link>
 
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
     {% block css %}{% endblock %}
 
-    <link rel="icon" type="image/png" href="/media/images/favicon.png" ></link>
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" ></link>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"> </script>
-    <script type="text/javascript" src="/media/js/blog_base.js"> </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/blog_base.js"> </script>
 
     {% block js_head %}{% endblock %}
 
@@ -132,13 +132,13 @@
 
 
     <div class="subtext">
-        &copy; 2008 Will McGugan.<br/><br/>
+        
     </div>
     <div class="credit">
         A <a href="http://code.google.com/p/djangotechblog/">technoblog</a> blog, design by <a href="http://www.willmcgugan.com">Will McGugan</a>
     </div>
     <div class="credit">
-        <a href="http://www.djangoproject.com" alt="Made with Django." title="Made with Django."><img src="/media/images/icons/djangosite80x15.gif"></a>
+        <a href="http://www.djangoproject.com" alt="Made with Django." title="Made with Django."><img src="{{ STATIC_URL }}images/icons/djangosite80x15.gif"></a>
     </div>
 
 {% include "ga.html" %}

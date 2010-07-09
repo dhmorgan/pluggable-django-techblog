@@ -90,12 +90,9 @@ SECRET_KEY = "nmhttt_4geb*9c2lu%l4(kat*=(35ov@fob_tn3v85$$^0k4%="
 TEMPLATE_LOADERS = [
     "django.template.loaders.filesystem.load_template_source",
     "django.template.loaders.app_directories.load_template_source",
-    'django.template.loaders.eggs.load_template_source',
 ]
 
 MIDDLEWARE_CLASSES = [
-    'django.middleware.cache.UpdateCacheMiddleware',
-
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -109,9 +106,6 @@ MIDDLEWARE_CLASSES = [
     "django_sorting.middleware.SortingMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-
-    'django.middleware.cache.FetchFromCacheMiddleware',
-    'apps.techblog.middleware.UrlRemapMiddleware',
 ]
 
 ROOT_URLCONF = "example_project.urls"
@@ -134,8 +128,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "notification.context_processors.notification",
     "announcements.context_processors.site_wide_announcements",
     "pinax.apps.account.context_processors.account",
-
-    "apps.techblog.context_processors.google_analytics",
 ]
 
 INSTALLED_APPS = [
@@ -148,8 +140,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.humanize",
     
-    'django.contrib.sitemaps',
-
     "pinax.templatetags",
     
     # external
@@ -193,13 +183,6 @@ INSTALLED_APPS = [
     # project
     "about",
     "basic_groups",
-
-    'apps.techblog.markup',
-
-    'apps.techblog.apps.blog',
-    'apps.techblog.apps.comments',
-    'apps.techblog.apps.pages',
-    'apps.techblog.apps.resources',
 ]
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"

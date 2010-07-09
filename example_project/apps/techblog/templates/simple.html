@@ -7,8 +7,8 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="/media/css/blog_base.css" type="text/css" ></link>
-    <link rel="icon" type="image/png" href="/media/images/favicon.png" ></link>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/blog_base.css" type="text/css" ></link>
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.png" ></link>
 
 </head>
 
@@ -83,13 +83,12 @@
 
 
     <div class="subtext">
-        &copy; 2008 Will McGugan.<br/><br/>
     </div>
     <div class="credit">
         A <a href="http://code.google.com/p/djangotechblog/">technoblog</a> blog, design by <a href="http://www.willmcgugan.com">Will McGugan</a>
     </div>
     <div class="credit">
-        <a href="http://www.djangoproject.com" alt="Made with Django." title="Made with Django."><img src="/media/images/icons/djangosite80x15.gif"></a>
+        <a href="http://www.djangoproject.com" alt="Made with Django." title="Made with Django."><img src="{{ STATIC_URL }}images/icons/djangosite80x15.gif"></a>
     </div>
 
 {% include "ga.html" %}
