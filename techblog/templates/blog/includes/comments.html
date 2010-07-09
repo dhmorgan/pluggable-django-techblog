@@ -1,0 +1,31 @@
+{% load comments %}
+{% if comments %}
+
+<ul class="comments-list">
+{% for comment in comments %}
+    <li id="comment{{ comment.id }}" class="comment {% cycle '' 'odd' %}">
+        <a name="comment{{ comment.id }}"></a>
+        <a href="#comment{{ comment.id }}">{% gravatar comment.email 40 "identicon" %}</a>
+        <div class="comment-header">
+            {% if not user.is_anonymous %}
+                <a href="/admin/comments/comment/{{ comment.id }}/">Admin comment</a>
+                <a href="#" class="delete-comment-link" onclick="delete_comment({{ comment.id }}, '{{ request.path }}'); return false;">Delete</a>
+            {% endif %}
+            <div class="comment-author">
+                <cite>{% if comment.url %}<a href="{{ comment.url }}" rel="nofollow">{% endif %}{{ comment.name|safe }}</cite>{% if comment.url %}</a>{% endif %}
+                {% if not user.is_anonymous %}{% if comment.email %}(<a href="mailto:{{ comment.email }}">{{ comment.email }}</a>){% endif %}{% endif %}
+            </div>
+            <div class="comment-time">
+                {{ comment.created_time|date:"F jS, Y" }}, {{ comment.created_time|date:"P" }}
+            </div>
+        </div>
+        <div class="comment-body">
+            {{ comment.content_html|safe }}
+        </div>
+
+    </li>
+{% endfor %}
+</ul>
+
+
+{% endif %}

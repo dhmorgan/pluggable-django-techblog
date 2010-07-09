@@ -1,0 +1,98 @@
+{% load markuptags %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="/media/css/blog_base.css" type="text/css" ></link>
+    <link rel="icon" type="image/png" href="/media/images/favicon.png" ></link>
+
+</head>
+
+<body>
+
+    <div class="page-repeat">
+
+    <div id="content">
+
+        <div id="header">
+            <div class="title-area">
+            <div class="inner">
+                <h1 class="faded-title">{% block headtitle %}{% endblock %}</h1>
+                <div class="blog-tagline">{% block tagline %}{% endblock %}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="bottom-shadow"> </div>
+
+            <div id="column1">
+
+                <div class="inner">
+
+                    <div class="column1-content">
+                        {% block content %}{% endblock %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="column2">
+                <div class="module-header">Search</div>
+                <div class="module search">
+                    <form action="/search/" method="get">
+                        <input class="search" name="s" value="{{ search_term }}"> </input>
+                        <button type="submit">Search</button>
+                    </form>
+                    <div class="clear">&nbsp;</div>
+                </div>
+                <div class="module-header">
+                    Helpful Links
+                </div>
+                <div class="module">
+                    <ul class="links-list">
+                        <li><a href="/">Home</a></li>
+                    </ul>
+                </div>
+                {% block column2 %}
+                {% endblock %}
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div id="footer">
+                <div class="inner">
+                    <div class="footer-content">
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <div class="page-end"> </div>
+
+
+    <div class="subtext">
+        &copy; 2008 Will McGugan.<br/><br/>
+    </div>
+    <div class="credit">
+        A <a href="http://code.google.com/p/djangotechblog/">technoblog</a> blog, design by <a href="http://www.willmcgugan.com">Will McGugan</a>
+    </div>
+    <div class="credit">
+        <a href="http://www.djangoproject.com" alt="Made with Django." title="Made with Django."><img src="/media/images/icons/djangosite80x15.gif"></a>
+    </div>
+
+{% include "ga.html" %}
+</body>
+
+</html>

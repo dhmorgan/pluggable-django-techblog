@@ -1,0 +1,2 @@
+{% load markuptags %}
+<blockquote>{% for line in chunk %}{% if line %}<p>{{ line|postmarkup }}</p>{% endif %}{% endfor %}</blockquote>

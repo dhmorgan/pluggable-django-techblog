@@ -1,0 +1,24 @@
+{% load blogtags %}
+{% load comments %}
+
+<ul class="comments-list">
+
+    <li id="comment{{ comment.id }}" class="comment odd">
+        <a name="comment{{ comment.id }}"></a>
+        <a href="#comment{{ comment.id }}">{% gravatar comment.email 40 "identicon" %}</a>
+        <div class="comment-header">
+            <div class="comment-author">
+                <cite>{% if comment.url %}<a href="{{ comment.url }}" rel="nofollow">{% endif %}{{ comment.name }}</cite>{% if comment.url %}</a>{% endif %}
+            </div>
+            <div class="comment-time">
+
+                {{ comment.created_time|date:"F jS, Y" }}
+            </div>
+        </div>
+        <div class="comment-body">
+            {{ comment.content_html|safe }}
+        </div>
+
+    </li>
+
+</ul>

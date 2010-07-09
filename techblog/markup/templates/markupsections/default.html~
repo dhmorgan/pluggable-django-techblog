@@ -1,0 +1,3 @@
+<!-- Section: {{ section.name }} -->
+Vars: {{ section.vars }}
+{% for content in content_chunks %}{{ content|safe }}{% endfor %}

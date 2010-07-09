@@ -1,0 +1,51 @@
+{% extends "blog/base.html" %}
+
+{% load blogtags %}
+{% load humanize %}
+{% load markuptags %}
+
+{% block title %}{{ blog.title }}{% ifnotequal page_no 1 %} - {{ page_no|ordinal }} page{% endifnotequal %}{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/media/js/blog_base.js"> </script>
+{% endblock %}
+
+{% block column1 %}
+
+
+{% include "blog/includes/post_list.html" %}
+
+{% if older_page_url or newer_page_url %}
+<div class="summary-navigation">
+    {% if older_page_url %}
+    <div class="prev-post">
+        <a href="{{ older_page_url }}">&larr;&nbsp;Older posts</a>
+    </div>
+    {% endif %}
+
+    {% if newer_page_url %}
+    <div class="next-post">
+        <a href="{{ newer_page_url }}">Newer posts&nbsp;&rarr;</a>
+    </div>{% endif %}
+    <div class="clear">&nbsp;</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block column2 %}
+
+{% include "blog/includes/indexadmin.html" %}
+
+{% markupsection sections "column2" %}
+
+
+{% endblock %}
+
+
+{% block summary_area %}
+<h1 class="faded-title"><a href="{{ blog_root }}">{{ blog.title }}</a></h1>
+{% if blog.tagline.strip %}<div class="blog-tagline">{{ blog.tagline }}</div>{% endif %}
+{% if blog.description_html.strip %}<div class="summary-area">{{ blog.description_html|safe }}</div>{% endif %}
+{% endblock %}

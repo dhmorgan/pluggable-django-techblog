@@ -1,0 +1,4 @@
+{% load markuptags %}
+<ul>
+    {% for line in chunk %}{% if line %}<li>{{ line|postmarkup }}</li>{% endif %}{% endfor %}
+</ul>

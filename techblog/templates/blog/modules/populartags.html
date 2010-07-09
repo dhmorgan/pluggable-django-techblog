@@ -1,0 +1,21 @@
+{% load blogtags %}
+{% load humanize %}
+{% load markuptags %}
+{% load cache %}
+
+{% cache 3600 "populartags" blog.slug vars.count %}
+{% get_tags for blog as tag_cloud max vars.count %}
+<div class="module-header">
+    Popular Tags
+</div>
+<div class="module">
+    <ul class="links-list">
+{% for scale, tag in tag_cloud %}
+    <li>
+        <a href="{{ blog_root }}{{ tag.get_blog_relative_url }}" title="{{ tag.count }} posts" class="tag">{{ tag.name|smart_title }} ({{ tag.count }})</a>
+    </li>
+{% endfor %}
+    </ul>
+</div>
+<div class="clear">&nbsp;</div>
+{% endcache %}

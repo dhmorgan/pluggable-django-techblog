@@ -1,0 +1,59 @@
+{% extends "blog/base.html" %}
+{% load markuptags %}
+
+{% load comments %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block summary_area %}
+<div class="faded-title"><a href="{{ blog.get_absolute_url }}">{{ page.title }}</a></div>
+<h1>{{ blog.tagline }}</h1>
+{% if section.intro %}<div class="summary-area">{% markupsection sections "intro" %}</div>{% endif %}
+{% endblock %}
+
+
+
+{% block column1 %}
+
+{% markupsection sections "main" %}
+
+
+{% get_comments for page as comments %}
+
+<a name="comments"> </a>
+{% if comments and page.show_comments %}
+<div class="comments">
+    <h2>{{ comments.count }} Comment{{ comments.count|pluralize }} on "{{ page.title }}"</h2>
+    {% include "blog/includes/comments.html" %}
+</div>
+{% endif %}
+
+{% if page.allow_comments %}
+{% get_comment_form for page as comment_form %}
+{% include "blog/includes/comment_form.html" %}
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block column2 %}
+
+{% if not is_preview and not user.is_anonymous %}
+<div class="module-header">Admin Options</div>
+<div class="module">
+    <ul class="links-list">
+        <li><a href="{% url pagewriter page.id %}">Edit this Page</a></li>
+        <li><a href="/admin/pages/page/{{ page.id}}">Admin Page</a></li>
+    </ul>
+
+</div>
+{% endif %}
+
+{% markupsection sections "column2" %}
+{% endblock %}
+
+
+{% block js_foot %}
+<script type="text/javascript" src="/media/js/comments.js"> </script>
+{% endblock %}

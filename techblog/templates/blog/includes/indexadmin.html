@@ -1,0 +1,19 @@
+{% if not is_preview and not user.is_anonymous %}
+<div class="module-header">Admin Options</div>
+<div class="module">
+    <ul class="links-list">
+
+        {% if not blog.is_channel %}
+        <li><a href="{% url newpost blog.slug %}">New Post</a></li>
+        {% else %}
+        {% for child_blog in blog.child_blogs %}
+        <li><a href="{{ child_blog.get_absolute_url }}"><strong>Blog:</strong> {{ child_blog.title }}</a></li>
+        {% endfor %}
+        {% endif %}
+
+        <li><a href="/accounts/logout/?next={{ request.path }}">Logout</a></li>
+        <li><a href="{% url manage %}">Manage</a></li>
+    </ul>
+
+</div>
+{% endif %}

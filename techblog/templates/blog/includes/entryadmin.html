@@ -1,0 +1,13 @@
+{% if not is_preview and not user.is_anonymous %}
+<div class="module-header">Admin Options</div>
+<div class="module">
+    <ul class="links-list">
+        <li><a href="/manage/">Manage blog</a></li>
+        <li><a href="{% url writer blog.slug post.id %}">Edit this post</a></li>
+        <li><a href="/admin/blog/post/{{ post.id}}/">Admin post</a></li>
+        <li><a href="?clearcache">Clear cached page</a></li>
+        <li><a href="/accounts/logout/?next={{ request.path }}">Logout</a></li>
+    </ul>
+
+</div>
+{% endif %}

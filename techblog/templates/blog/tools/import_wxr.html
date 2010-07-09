@@ -1,0 +1,21 @@
+<html>
+<head>
+
+</head>
+
+<body>
+
+<h1>Import Tools</h1>
+
+<h2>Import WXR</h2>
+<p>
+<form action="{% url import_wxr %}" enctype="multipart/form-data" method="POST">
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+</p>
+
+
+</body>
+
+</html>

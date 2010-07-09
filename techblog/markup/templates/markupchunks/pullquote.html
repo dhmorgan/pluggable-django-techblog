@@ -1,0 +1,4 @@
+{% load markuptags %}
+<div class="pullquote">
+{% for line in chunk %}{% if line %}{{ line|postmarkup }}{% endif %}{% endfor %}
+</div>

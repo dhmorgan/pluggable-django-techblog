@@ -1,0 +1,96 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Manage{% endblock %}
+
+{% block summary_area %}
+<h1 class="faded-title">Manage Blog</h1>
+<div class=""></div>
+
+{% endblock %}
+
+
+{% block column1 %}
+<h2>Manage your Blog</h2>
+
+<p>This page contains options for managing your blog.
+You can also use the <a href="/admin">admin</a> pages for more advanced control.</p>
+
+<h3>Actions</h3>
+<ul>
+    <li><a href="/admin/blog/blog/add/">Add Blog</a></li>
+    <li><a href="/admin/blog/channel/add/">Add Channel</a></li>
+</ul>
+
+
+<h3>Drafts</h3>
+
+<ul>
+    {% for draft in drafts %}
+    <li><a href="{% url writer draft.blog.slug draft.version_id %}">{{ draft.title }}</a> ({{ draft.blog.title }})</li>
+    {% endfor %}
+</ul>
+
+
+{% if cache_stats %}
+<h3>Cache Stats</h3>
+<table>
+    {% for k, v in cache_stats %}
+    <tr>
+        <td>{{ k }}</td>
+        <td>{{ v }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}
+
+
+{% block column2 %}
+
+<div class="module-header">
+    Blogs
+</div>
+<div class="module">
+    <ul class="links-list">
+    {% for blog in blogs %}
+    <li><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="module-header">
+    Channels
+</div>
+<div class="module">
+    <ul class="links-list">
+    {% for channel in channels %}
+    <li><a href="{{ channel.get_absolute_url }}">{{ channel.title }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+
+<div class="module-header">
+    Tools
+</div>
+<div class="module">
+    <ul class="links-list">
+        <li><a href="{% url logout %}">Logout</a></li>
+        <li><a href="/tools/import">Import</a></li>
+    </ul>
+</div>
+
+
+<div class="module-header">
+    Pages
+</div>
+<div class="module">
+    <ul class="links-list">
+        <li><a href="{% url newpage %}">Add page</a></li>
+    </ul>
+</div>
+
+
+{% endblock %}

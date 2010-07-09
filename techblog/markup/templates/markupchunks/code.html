@@ -1,0 +1,2 @@
+{% load markuptags %}
+{% with chunk.vars.language|default:"" as language %}{% code content language %}{% endwith %}

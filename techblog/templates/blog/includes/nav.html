@@ -1,0 +1,18 @@
+{% load blogtags %}
+{% if prev_post or next_post %}
+<div class="post-navigation">
+    {% if prev_post %}
+    <div class="prev-post">
+        <a href="{% get_post_url blog_root prev_post %}" title="{{ prev_post.title }}">&larr;&nbsp;{{ prev_post.title|truncatewords:6 }}</a>
+    </div>
+    {% endif %}
+
+    {% if next_post %}
+    <div class="next-post">
+        <a href="{% get_post_url blog_root next_post %}" title="{{ next_post.title }}">{{ next_post.title|truncatewords:6 }}&nbsp;&rarr;</a>
+    </div>
+    {% endif %}
+
+    <div class="clear">&nbsp;</div>
+</div>
+{% endif %}

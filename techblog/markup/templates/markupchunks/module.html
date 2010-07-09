@@ -1,0 +1,7 @@
+{% load markuptags %}
+<div class="module-header">{{ chunk.vars.title }}</div><div class="module-header-end"> </div>
+<div class="module">
+    {% for line in chunk %}{% if line %}<p{% if chunk.vars.class %} class="{{ chunk.vars.class }}"{% endif %}>{{ line|postmarkup }}</p>
+    {% endif %}{% endfor %}
+    <div class="clear">&nbsp;</div>
+</div>

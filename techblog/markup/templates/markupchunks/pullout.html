@@ -1,0 +1,4 @@
+{% load markuptags %}
+<div class="pullout-left">
+{% for line in chunk %}{% if line %}<p>{{ line|postmarkup }}</p>{% endif %}{% endfor %}
+</div>

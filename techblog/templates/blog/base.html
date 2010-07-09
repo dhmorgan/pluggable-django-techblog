@@ -1,0 +1,149 @@
+{% load markuptags %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>{% block title %}YOU FORGOT THE TITLE!{% endblock %}</title>
+    <link rel="stylesheet" href="/media/css/blog_base.css" type="text/css" ></link>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+    {% block css %}{% endblock %}
+
+    <link rel="icon" type="image/png" href="/media/images/favicon.png" ></link>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"> </script>
+    <script type="text/javascript" src="/media/js/blog_base.js"> </script>
+
+    {% block js_head %}{% endblock %}
+
+    {% if feeds %}
+        {% for feed in feeds %}
+            <link href="{{ feed.url }}" rel="alternate" type="application/rss+xml" title="{{ feed.title }}" />
+        {% endfor %}
+    {% endif %}
+    {% block head %}{% endblock %}
+    {% markupsection sections "head" %}
+    {% markupsection sections "css" %}
+    {% markupsection sections "js-head" %}
+
+</head>
+
+<body>
+
+    {% if preview_comment_url %}
+    <input type="hidden" id="xhr_preview_comment" value="{{ preview_comment_url }}" />
+    {% else %}
+    <input type="hidden" id="xhr_preview_comment" value="{% url xhr_preview_comment blog.slug %}" />
+    {% endif %}
+
+    <input type="hidden" id="xhr_post_comment" value="{% url xhr_post_comment %}" />
+    <input type="hidden" id="xhr_delete_comment" value="{% url xhr_delete_comment %}" />
+
+
+    <div class="page-repeat">
+
+    <div id="content">
+
+        {% if user.is_anonymous %}
+        <div class="hidden-login"><a href="/accounts/login/?next={{ request.path }}" ref="nofollow">&nbsp;</a></div>
+        {% else %}
+        <div class="hidden-login"><a href="/accounts/logout/?next={{ request.path }}" ref="nofollow">&nbsp;</a></div>
+        {% endif %}
+
+        {% if feeds %}
+        <div class="feed-icon-container">
+            <div class="feed-icon-large">
+                <a href="{{ feeds.0.url }}" title="Click here to subscribe to the {{ feeds.0.title }}">&nbsp;</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <div id="header">
+
+            <div class="title-area">
+                <div class="inner">
+                    {% block summary_area %}{% endblock %}
+                </div>
+
+            </div>
+             {% markupsection sections "mainlinks" %}
+
+        </div>
+
+        <div id="main">
+
+
+
+            <div class="bottom-shadow"> </div>
+
+            {% block above_columns %}{% endblock %}
+
+            <div id="column1">
+
+                <div class="inner">
+
+                    <div class="column1-content">
+                        {% block column1 %}
+                        <h2><a href="#">Blog Post Title</a></h2>
+                        <div class="post-subtitle">Posted 2 days ago, by Will</div>
+
+                        <p>
+                While Reset CSS removes and <a href="kjhkjh">neutralizes</a> the inconsistent default styling of HTML elements, Base CSS applies a consistent style foundation for common HTML elements across A-grade browsers.
+
+    Fonts CSS offers cross-browser typographical normalization and control; the framework provides consistent font sizing and line-height, supports user-driven font-size adjustment in the browser, including cross-browser consistency for adjusted sizes and works in both Quirks Mode and Standards Mode.
+
+    Grids CSS delivers four preset page widths, six preset templates, and the ability to stack and nest subdivided regions of two, three, or four columns. The 4kb file provides over 1000 page layout combinations. The framework supports easy customization of the width for fixed-width layouts; it also supports fluid-width (100%) layouts as well as preset fixed-width layouts at 750px, 950px, and 974px, and the ability to easily customize to any number. YUI also offers The YUI Grids Builder — a simple interface for Grids customization.
+
+    You should be aware that these frameworks are often criticized for bloating the code with non-semantic markup and generating too many unnecessary classes, IDs and div-containers in CSS. Yahoo! UI Library also provides a detailed documentation with numerous examples, tutorials, cheat sheets, templates and tools.
+                        </p>
+                        {% endblock %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="column2">
+                {% block column2 %}
+                {% markupsection sections "column2" %}
+                {% endblock %}
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div id="footer">
+                <div class="inner">
+                    <div class="footer-content">
+                        {% markupsection sections "footer" %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <div class="page-end"> </div>
+
+
+    <div class="subtext">
+        &copy; 2008 Will McGugan.<br/><br/>
+    </div>
+    <div class="credit">
+        A <a href="http://code.google.com/p/djangotechblog/">technoblog</a> blog, design by <a href="http://www.willmcgugan.com">Will McGugan</a>
+    </div>
+    <div class="credit">
+        <a href="http://www.djangoproject.com" alt="Made with Django." title="Made with Django."><img src="/media/images/icons/djangosite80x15.gif"></a>
+    </div>
+
+{% include "ga.html" %}
+</body>
+{% block js_foot %}
+{% endblock %}
+{% markupsection sections "js-foot" %}
+</html>

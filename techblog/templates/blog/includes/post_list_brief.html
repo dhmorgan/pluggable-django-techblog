@@ -1,0 +1,18 @@
+{% load blogtags %}
+{% load humanize %}
+{% load comments %}
+
+<div class="search_results">
+{% for post in posts %}
+
+<div class="search-result">
+<h2><a href="{% get_post_url blog_root post %}">{{ post.title }}</a></h2>
+
+{# <div class="post-subtitle">{{ post.display_time|date:"F jS, Y" }}</div> #}
+
+
+<p>{{ post.content_text|textilize|truncatewords:"24"|safe }}</p>
+</div>
+
+{% endfor %}
+</div>

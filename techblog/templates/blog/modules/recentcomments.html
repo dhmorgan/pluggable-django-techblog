@@ -1,0 +1,24 @@
+{% load blogtags %}
+{% load cache %}
+
+{% cache 3600 "recentcommentsmodule" blog.slug vars.count %}
+{% get_recent_comments for blog as comments max vars.count %}
+
+<div class="module-header">
+    Recent Comments
+</div>
+<div class="module">
+{% for comment in comments %}
+
+<div class="recent-comment">
+
+    {{ comment.content_text|truncatewords:20 }}<br>
+    <div class="author">
+    - <strong>{{ comment.name }}</strong> on <a href="{{ blog_root }}{{ comment.content_object.get_blog_relative_url }}#comment{{ comment.id }}">{{ comment.content_object.title }}</a>
+    </div>
+
+</div>
+
+{% endfor %}
+</div>
+{% endcache %}

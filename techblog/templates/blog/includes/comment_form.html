@@ -1,0 +1,53 @@
+{% load comments %}
+{% load markuptags %}
+
+<a name="comment-form"></a>
+<div class="blog-comment-form">
+<h3>Leave a Comment</h3>
+
+<form id="comment-form" action="post" target="">
+
+        <p>
+            <label for="id_name"><strong>Name</strong> (required):</label> <input type="text" id="id_name" name="name"/>
+            <div class="comment-form-errors" id="id_name_errors"></div>
+        </p>
+
+        <p>
+            <label for="id_email"><strong>Email</strong> (not published):</label> <input type="text" id="id_email" name="email"/>
+            <div class="comment-form-errors" id="id_email_errors"></div>
+        </p>
+
+        <p>
+            <label for="id_url"><strong>Website</strong>:</label> <input type="text" id="id_url" name="url"/>
+            <div class="comment-form-errors" id="id_url_errors"></div>
+        </p>
+
+        <p>
+            <label for="id_content"><strong>Comment</strong>:</label> <textarea name="content" cols="40" rows="10" id="id_content" ></textarea>
+            <div class="comment-form-errors" id="id_content_errors"></div>
+        </p>
+
+{% for field in comment_form %}
+{% if field.is_hidden %}{{ field }}{% endif %}
+{% endfor %}
+<input type="hidden" id="id_success_url" name="success_url" value="{{ request.path }}"></input>
+
+    <div class="comment-form-help">
+        You can use <a href="http://en.wikipedia.org/wiki/Bbcode" target="_blank">bbcode</a> in the comment: e.g.
+        [b]This is bold[/b], [url]http://www.willmcgugan.com[/url], [code python]import this[/code]
+    </div>
+
+    <div class="comment-form-options">
+        <a id="comment-preview" href="#" title="Click before posting comment">Preview</a>
+        <input id="comment-submit" type="submit" value="Post Comment"></input>
+        <span id="comment-submit-working">Posting... </span>
+    </div>
+</form>
+</div>
+
+<div id="comment-preview-working">
+    <div class="content">Previewing comment, please wait a moment...</div>
+    <img src="/media/images/throbber.gif" />
+</div>
+<div id="comment-preview-content">
+</div>

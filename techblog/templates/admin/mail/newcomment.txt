@@ -1,0 +1,7 @@
+Hi {{ name }},
+
+New comment on your post, entitled {{ post }}.
+
+Comment URL: {{ url }}
+
+{{ comment }}

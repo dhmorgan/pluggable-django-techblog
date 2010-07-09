@@ -1,0 +1,13 @@
+{% load blogtags %}
+{% load comments %}
+<div class="post">
+{{ post.content_html|safe }}
+</div>
+
+<div class="post-description">
+    This blog post was posted to <a href="{{ post.blog.get_absolute_url }}">{{ post.blog.title }}</a>
+    on {{ post.display_time|date:"l F jS, Y" }}
+    at {{ post.display_time|time:"g:sA" }}
+</div>
+
+{% include "blog/includes/nav.html" %}

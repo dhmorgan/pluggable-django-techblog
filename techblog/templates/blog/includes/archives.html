@@ -1,0 +1,31 @@
+{% load blogtags %}
+{% load humanize %}
+{% load markuptags %}
+{% load cache %}
+
+{% cache 3600 archive_year archive_month blog.slug %}
+{% get_archives for blog as archives %}
+
+<div>
+<div class="archives archives-full">
+    {% for year,months in archives %}
+    <div id="archive-year-{{ year }}">
+        <div class="archive-year">
+            {{ year }}
+        </div>
+        <ul class="archive-months">
+            {% for month_url, year, month, count in months %}
+            <li{% ifequal month archive_month %}{% ifequal year archive_year %} class="current-month"{% endifequal %}{% endifequal %}>
+                <div class="archive-month">
+                    <a href="{{ month_url }}" title="{{ count }} posts">{{ month|longmonth }}</a>
+                </div>
+                <div class="archive-count">{{ count }} post{{ count|pluralize }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="clear">&nbsp;</div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endcache %}

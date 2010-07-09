@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<style type="text/css">
+
+*{
+    padding:0px;
+    margin:0px;
+}
+html,body{
+      margin:0;
+      padding:0;
+      height:100%;
+      border:none;
+      font-family:arial;
+      font-size:12px;
+      background-color:#ccc;
+   }
+
+#id_title, #id_tags_text, #id_slug
+{
+ width:99%;
+}
+
+label
+{
+    font-weight:bold;
+}
+
+label[for=id_tags_text],label[for=id_title],label[for=id_slug]
+{
+    float:right;
+}
+
+input[type=text], textarea
+{
+    border:1px solid #0066CC;
+    padding:2px;
+}
+
+input[type=checkbox]
+{
+    border:1px solid #0066CC;
+    padding:2px;
+}
+
+.option
+{
+    width:200px;
+    float:left;
+}
+
+.buttons
+{
+    margin-top:10px;
+}
+
+input[type=submit]
+{
+    margin-right:20px;
+    min-width:120px;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<div style="height: 90%; padding:10px;">
+<form style="height:100%" action="{% url writer blog.slug edit_post.id %}" method="post">
+
+
+
+<div>
+    <table width="100%">
+        <tr >
+            <td width="200px"><label for="id_title">Title</label></td>
+            <td><input type="text" id="id_title" name="title" value="{{ post.title }}"></input></td>
+        </tr>
+
+        <tr>
+            <td width="200px"><label for="id_slug">Slug</label></td>
+            <td><input type="text" id="id_slug" name="slug" value="{{ post.slug }}"></input></td>
+        </tr>
+
+        <tr>
+            <td width="200px"><label for="id_tags_text">Tags</label></td>
+            <td><input type="text" id="id_tags_text" name="tags_text" value="{{ post.tags_text }}"></input></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+            <div class="option">
+                <input type="checkbox" id="id_published" name="published" {% if post.published %}checked="checked"{% endif %}></input>
+                <label for="id_published">Visible on site?</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="id_allow_comments" name="allow_comments" {% if post.allow_comments %}checked="checked"{% endif %}></input>
+                <label for="id_allow_comments">Allow comments?</label>
+            </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<textarea style="width:99%;height:85%;margin-top:10px;" id="id_content" name="content">{{ post.content }}</textarea>
+<div class="buttons">
+    <input type="submit" type="button" name="preview" value="Preview"></input>
+    <input type="submit" name="save" value="Save"></input>
+    <input type="submit" name="revert" value="Revert" onclick="return confirm('Revert to previously published version?')"></input>
+    <input type="submit" name="publish" value="Publish" onclick="return confirm('Publish this post?')"></input>
+    <a href="{% url blog_post blog.slug post.display_time.year post.display_time.month post.display_time.day post_slug %}" target="_blank">View on site</a>
+    <a href="/admin/resources/imageupload/add/" target="_blank">Upload an image</a>
+    <a href="/admin/resources/imageupload/" target="_blank">View Images</a>
+</div>
+
+</form>
+
+</div>
+
+{% if auto_url %}
+<script>
+window.open("{{ auto_url }}", 'preview_{{ post.id }}');
+</script>
+{% endif %}
+
+</body>

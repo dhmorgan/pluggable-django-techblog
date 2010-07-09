@@ -1,0 +1,7 @@
+{% load markuptags %}
+{% if chunk.vars.title %}<div class="module-header">{{ chunk.vars.title }}</div>{% endif %}
+<div class="module">
+<ul class="links-list">
+    {% for line in chunk %}<li>{{ line|link }}</li>{% endfor %}
+</ul>
+</div>

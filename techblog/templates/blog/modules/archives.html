@@ -1,0 +1,86 @@
+{% load blogtags %}
+{% load humanize %}
+{% load markuptags %}
+{% load cache %}
+
+{% cache 3600 "archivesmodule2" blog.slug %}
+{% get_archives for blog as archives %}
+
+<div class="module-header">Archives</div>
+<div class="module">
+<div class="archives">
+    {% for year,months in archives %}
+    <div id="archive-year-{{ year }}" class="year{% if not forloop.first %} invisible{% endif %}">
+        <div class="archive-year">
+            <span class="yearprevbutton{% if forloop.last %} disabled{% endif %}" name="year{{ year }}" title="Previous year">&larr;</span>
+                {{ year }}
+            <span class="yearnextbutton{% if forloop.first %} disabled{% endif %}" name="year{{ year }}" title="Next year">&rarr;</span>
+        </div>
+        <ul class="archive-months">
+            {% for month_url, year, month, count in months %}
+            <li>
+                <div class="archive-month">
+                    <a href="{{ month_url }}" title="{{ count }} posts">{{ month|longmonth }}</a>
+                </div>
+                <div class="archive-count">{{ count }} post{{ count|pluralize }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="clear">&nbsp;</div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+<script type="text/javascript">
+
+$(function(){
+
+    $(".yearprevbutton").click(function(){
+        var $this = $(this);
+        if ($this.hasClass('disabled'))
+        {
+            return;
+        }
+        var year = parseInt( $this.attr('name').substr(4) );
+
+        var $current_archive_year = $('#archive-year-'+year);
+
+        var max_years = 10;
+        do{
+            year--;
+            var $archive_year = $('#archive-year-'+year);
+            max_years--;
+
+        }while(max_years>0 && !$archive_year);
+
+        $current_archive_year.slideUp(function(){
+        $archive_year.slideDown();});
+    })
+
+    $(".yearnextbutton").click(function(){
+        var $this = $(this);
+        if ($this.hasClass('disabled'))
+        {
+            return;
+        }
+        var year = parseInt( $this.attr('name').substr(4) );
+
+        var $current_archive_year = $('#archive-year-'+year);
+
+        var max_years = 10;
+        do{
+            year++;
+            var $archive_year = $('#archive-year-'+year);
+            max_years++;
+
+        }while(max_years>0 && !$archive_year);
+
+        $current_archive_year.slideUp(function(){
+        $archive_year.slideDown();});
+    })
+
+})
+
+
+</script>
+{% endcache %}

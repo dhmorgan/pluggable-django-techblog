@@ -1,0 +1,12 @@
+{% load blogtags %}
+{% load humanize %}
+{% load comments %}
+
+{% for post in posts %}
+
+<div class="post separator">
+
+{% render_post_brief post %}
+
+</div>
+{% endfor %}

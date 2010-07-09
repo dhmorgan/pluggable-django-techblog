@@ -1,0 +1,22 @@
+{% load markuptags %}{% load resourcestags %}
+<div class="img-caption {{ chunk.vars.float }}" style="line-height:0;">
+    <div style="width:{% siteimage_width chunk.vars.name chunk.vars.size %}px;">
+
+    {% if chunk.vars.link %}
+    <a href="{{ chunk.vars.link }}">
+    {% else %}
+    <a href="{% siteimage_url chunk.vars.name chunk.vars.size %}" target="_blank">
+    {% endif %}
+
+        {% siteimage chunk.vars.name chunk.vars.size %}
+
+    </a>
+
+    {% if chunk %}
+    <div class="caption" style="width:{% siteimage_width chunk.vars.name chunk.vars.size %}px;">
+    {% for line in chunk %}{% if line %}<p>{{ line|postmarkup }}</p>{% endif %}{% endfor %}
+    </div>
+    {% endif %}
+
+    </div>
+</div>

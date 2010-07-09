@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+
+{% load blogtags %}
+{% load humanize %}
+{% load markuptags %}
+
+{% block title %}{{ search_term }} - {{ blog.title }}{% endblock %}
+
+{% block column1 %}
+
+{% if num_results %}
+<div class="page-header">{{ num_results }} post{{ num_results|pluralize }} containing <em>{{ search_term }}</em></div>
+{% else %}
+<div class="page-header">No Results</div>
+{% endif %}
+
+{% include "blog/includes/post_list_brief.html" %}
+
+{% endblock %}
+
+{% block summary_area %}
+<h1 class="faded-title"><a href="{{ blog_root }}">{{ blog.title }}</a></h1>
+<div class="blog-tagline">Search Results</div>
+{% endblock %}
+
+
+{% block column2 %}
+{% include "blog/modules/search.html" %}
+
+{% if tags %}
+<div class="module-header">Tags</div>
+<div class="module">
+    <ul class="tags-list">
+    {% for tag in tags %}
+    <li><a href="{{ blog_root }}{{ tag.get_blog_relative_url }}" class="tag">{{ tag.name|smart_title }}</a></li>
+    {% endfor %}
+    </ul>
+    <div class="clear">&nbsp;</div>
+</div>
+
+{% endif %}
+
+{% endblock %}

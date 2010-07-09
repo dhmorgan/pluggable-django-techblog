@@ -1,0 +1,25 @@
+{% load blogtags %}
+{% load comments %}
+<h2 class="microblog">&ldquo;&nbsp;{% microblog post blog_root %}&nbsp;&rdquo;</h2>
+
+    <span class="comments-count" style="float:right;">
+    {% get_comments_count for post as num_comments %}
+    <a class="comments-link" title="comments" href="{% get_post_url blog_root post %}#comments">{{ num_comments }}</a>
+    </span>
+{# Removed this because tweets took up too much space... #}
+{% comment %}
+<div class="post-info">
+
+    <span class="comments-count">
+    {% get_comments_count for post as num_comments %}
+    {% if num_comments %}<a class="comments-link" href="{% get_post_url blog_root post %}#comments">{{ num_comments }} comments</a>{% endif %}
+    {% if not num_comments %}<a  class="comments-link" href="{% get_post_url blog_root post %}#comments">No comments</a>{% endif %}
+    </span>
+    <span class="tag-list">
+        {% for tag in post.get_tags %}<a class="tag-link" href="{{ blog_root }}{{ tag.get_blog_relative_url }}">{{ tag.name }}</a>{% if not forloop.last %}, {%endif %} {% endfor %}</a>
+    </span>
+
+</div>
+{% endcomment %}
+
+<div class="clear">&nbsp;</div>

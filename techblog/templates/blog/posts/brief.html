@@ -1,0 +1,31 @@
+{% load blogtags %}
+{% load comments %}
+<h2><a href="{% get_post_url blog_root post %}">{{ post.title }}</a></h2>
+
+<div class="post-subtitle">{{ post.display_time|date:"F jS, Y" }}</div>
+
+{% if not post.content_summary_html %}
+    {{ post.content_html|first_paragraph|safe }}
+{% endif %}
+
+
+{% if post.content_summary_html %}
+    {{ post.content_summary_html|safe }}
+{% endif %}
+
+<div class="read-more"><a href="{% get_post_url blog_root post %}">Read more...</a></div>
+
+<div class="post-info">
+
+    <span class="comments-count">
+    {% get_comments_count for post as num_comments %}
+    {% if num_comments %}<a class="comments-link" href="{% get_post_url blog_root post %}#comments">{{ num_comments }} comments</a>{% endif %}
+    {% if not num_comments %}<a  class="comments-link" href="{% get_post_url blog_root post %}#comments">No comments</a>{% endif %}
+    </span>
+    <span class="tag-list">
+        {% for tag in post.get_tags %}<a class="tag-link" href="{{ blog_root }}{{ tag.get_blog_relative_url }}">{{ tag.name }}</a>{% if not forloop.last %}, {%endif %} {% endfor %}</a>
+    </span>
+
+</div>
+
+<div class="clear">&nbsp;</div>

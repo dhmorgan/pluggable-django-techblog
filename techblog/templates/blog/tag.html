@@ -1,0 +1,75 @@
+{% extends "blog/base.html" %}
+
+{% load blogtags %}
+{% load humanize %}
+{% load markuptags %}
+{% load cache %}
+
+{% block title %}Posts tagged with '{{ tag.name }}'{% endblock %}
+
+{% load blogtags %}
+
+{% block summary_area %}
+<h1 class="faded-title"><a href="{{ blog_root }}">{{ blog.title }}</a></h1>
+{% if blog.tagline.strip %}<div class="blog-tagline">{{ blog.tagline }}</div>{% endif %}
+{% if section.intro %}<div class="summary-area">{% markupsection sections "intro" %}</div>{% endif %}
+{% endblock %}
+
+
+{% block column1 %}
+
+<div class="page-header"><em>{{ tag.name|smart_title }}</em> posts</div>
+{% include "blog/includes/post_list.html" %}
+
+
+{% if older_page_url or newer_page_url %}
+<div class="summary-navigation">
+    {% if older_page_url %}
+    <div class="prev-post">
+        <a href="{{ older_page_url }}">&larr;&nbsp;Older posts</a>
+    </div>
+    {% endif %}
+
+    {% if newer_page_url %}
+    <div class="next-post">
+        <a href="{{ newer_page_url }}">Newer posts&nbsp;&rarr;</a>
+    </div>{% endif %}
+    <div class="clear">&nbsp;</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block column2 %}
+
+    <div class="module-header">Search</div>
+    <div class="module search">
+        <form action="{{ blog_root }}search/" method="get">
+            <input class="search" name="s" value="{{ search_term }}"> </input>
+            <button type="submit">Search</button>
+        </form>
+        <div class="clear">&nbsp;</div>
+    </div>
+
+{% cache 3600 "populartags" tag.id blog.slug 100 %}
+{% get_tags for blog as tag_cloud max 100 %}
+<div class="module-header">
+    Popular Tags
+</div>
+<div class="module alltags" >
+    <ul class="links-list">
+{% for scale, ltag in tag_cloud %}
+    <li>
+        <a href="{{ blog_root }}{{ ltag.get_blog_relative_url }}"
+            title="{{ tag.count }} posts" class="tag">
+            {% ifequal ltag.name tag.name %}<b>{{ ltag.name|smart_title }} ({{ ltag.count }})</b>{% else %}
+            {{ ltag.name|smart_title }} ({{ ltag.count }}) {% endifequal %}
+        </a>
+    </li>
+{% endfor %}
+    </ul>
+</div>
+<div class="clear">&nbsp;</div>
+{% endcache %}
+
+{% endblock %}

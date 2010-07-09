@@ -1,0 +1,22 @@
+{% load blogtags %}
+{% load cache %}
+
+{% cache 3600 "recentpostsmodule" blog.slug vars.count %}
+
+{% get_recent_posts for blog as posts max vars.count %}
+
+
+<div class="module-header">
+    Recent Posts
+</div>
+<div class="module">
+    <ul class="links-list">
+{% for post in posts %}
+    <li>
+        <a href="{{ blog_root }}{{ post.get_blog_relative_url }}"{% if post.is_new %} class="new"{% endif %}>{{ post.title }}</a>
+    </li>
+{% endfor %}
+    </ul>
+</div>
+<div class="clear">&nbsp;</div>
+{% endcache %}

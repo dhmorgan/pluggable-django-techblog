@@ -1,0 +1,28 @@
+{% extends "accounts/accounts_base.html" %}
+
+{% block content %}
+
+<h2>Login Credentials</h2>
+
+    <form method="post" action="." class="pretty-input">
+        <input type="hidden" name="next" value="{{ next }}" />
+        <table class="login">
+            <tr>
+                <td><label for="id_username">Username:</label></td>
+                <td><input type="text" name="username" id="id_username"/></td>
+            </tr>
+            <tr>
+                <td><label for="id_password">Password:</label></td>
+                <td><input type="password" name="password" id="id_password"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+{% endblock %}
